@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import styles from "./CoverLeaf.module.css";
+import styles from "./Envelope.module.css";
 
 /**
  * Reads the ?to= query param and prints it on the guest line. Must be

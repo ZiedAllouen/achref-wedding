@@ -19,7 +19,7 @@ type RevealProps = {
  * motion, so this never gates content behind JavaScript.
  */
 export function Reveal({ children, as: Tag = "div", className, delayMs = 0 }: RevealProps) {
-  const { ref, revealed } = useRevealOnScroll<HTMLDivElement>();
+  const { ref, revealed } = useRevealOnScroll<HTMLElement>();
 
   return (
     <Tag

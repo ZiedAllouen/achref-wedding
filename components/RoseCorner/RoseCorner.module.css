@@ -6,18 +6,33 @@
   pointer-events: none;
   transform-origin: center;
   filter: drop-shadow(0 10px 22px rgba(120, 90, 45, 0.1));
-  animation: rose-bloom 1100ms var(--ease-open) both;
-  animation-delay: 150ms;
+  opacity: 0;
+  /* Two animations share this element: `rose-fade-in` only ever touches
+     opacity (a one-shot entrance), while `botanical-sway` owns `transform`
+     continuously, so neither clobbers the other's property once the
+     fade-in's `both` fill holds its end state. */
+  animation:
+    rose-fade-in 1100ms var(--ease-open) both,
+    botanical-sway 8s ease-in-out infinite;
+  animation-delay: 150ms, 0ms;
 }
 
-@keyframes rose-bloom {
+@keyframes rose-fade-in {
   from {
     opacity: 0;
-    transform: scale(calc(var(--flip-x, 1) * 0.85), calc(var(--flip-y, 1) * 0.85));
   }
   to {
     opacity: 1;
-    transform: scale(var(--flip-x, 1), var(--flip-y, 1));
+  }
+}
+
+@keyframes botanical-sway {
+  0%,
+  100% {
+    transform: scale(var(--flip-x, 1), var(--flip-y, 1)) rotate(-1deg) translateY(0);
+  }
+  50% {
+    transform: scale(var(--flip-x, 1), var(--flip-y, 1)) rotate(1.8deg) translateY(-0.35rem);
   }
 }
 
@@ -26,6 +41,10 @@
     animation: none;
     opacity: 1;
     transform: scale(var(--flip-x, 1), var(--flip-y, 1));
+  }
+
+  .spark {
+    animation: none;
   }
 }
 
@@ -119,4 +138,26 @@
 
 .spark {
   fill: rgba(184, 147, 90, 0.7);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: spark-glow 3.2s ease-in-out infinite;
+}
+
+.spark:nth-of-type(2) {
+  animation-delay: 0.8s;
+}
+.spark:nth-of-type(3) {
+  animation-delay: 1.6s;
+}
+
+@keyframes spark-glow {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
 }

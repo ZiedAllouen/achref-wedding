@@ -1,6 +1,8 @@
 .switcher {
   position: fixed;
-  z-index: 20;
+  /* Above the Envelope cover overlay (z-index: 40) so guests can still
+     switch language before opening the invitation. */
+  z-index: 50;
   top: 1.25rem;
   inset-inline-end: 2rem;
   display: flex;
