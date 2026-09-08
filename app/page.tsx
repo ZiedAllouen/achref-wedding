@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher/LanguageSwitcher";
-import { Envelope } from "@/components/Envelope/Envelope";
+import { FoldedCard } from "@/components/FoldedCard/FoldedCard";
 import { ArchFrame } from "@/components/ArchFrame/ArchFrame";
 import { FlourishHeart, PanelFrame } from "@/components/Ornaments/Ornaments";
 import { RoseCorner } from "@/components/RoseCorner/RoseCorner";
@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <LanguageSwitcher />
-      {!isOpened && <Envelope onOpen={() => setIsOpened(true)} />}
+      {!isOpened && <FoldedCard onOpen={() => setIsOpened(true)} />}
 
       <article
         className={`${styles.invitation} ${isOpened ? styles.visible : ""}`}

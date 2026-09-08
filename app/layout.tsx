@@ -24,7 +24,7 @@ const garamond = EB_Garamond({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://achraf-molka.vercel.app"),
+  metadataBase: new URL("https://achref-molka.vercel.app"),
   title: ar.meta.title,
   description: ar.meta.description,
 };
