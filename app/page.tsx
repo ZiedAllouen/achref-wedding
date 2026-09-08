@@ -18,7 +18,7 @@ import styles from "./page.module.css";
 /* Friday 30 October 2026, 21:00 Tunisia time (UTC+1, no DST). */
 const WEDDING_DATE = "2026-10-30T21:00:00+01:00";
 const WEDDING_MAP_URL =
-  "https://www.google.com/maps/dir//Tej+Palace,+RQJV%2BCQX,+Sakiet+Eddaier/@36.8115712,10.1351424,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x1301d13af6ef2ee1:0xbbdb814f2ecd1830!2m2!1d10.7943346!2d34.8312148?entry=ttu";
+  "https://www.google.com/maps/dir/?api=1&destination=Tej%20Palace%2C%20Complexe%20Mariem%2C%20Route%20de%20Mahdia%20km%2010%2C%20Sfax%2C%20Tunisia&travelmode=driving";
 
 export default function Home() {
   const [isOpened, setIsOpened] = useState(false);
