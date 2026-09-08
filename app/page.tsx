@@ -1,17 +1,17 @@
 "use client";
 
-import { useEffect, type CSSProperties, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import { useScrollReveal } from "@/lib/useScrollReveal";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher/LanguageSwitcher";
-import { Envelope } from "@/components/Envelope/Envelope";
+import { CoverLeaf } from "@/components/CoverLeaf/CoverLeaf";
+import { ArchFrame } from "@/components/ArchFrame/ArchFrame";
+import { FlourishHeart, PanelFrame } from "@/components/Ornaments/Ornaments";
+import { RoseCorner } from "@/components/RoseCorner/RoseCorner";
 import { Countdown } from "@/components/Countdown/Countdown";
-import { EventCard } from "@/components/EventCard/EventCard";
+import { EventDetails } from "@/components/EventDetails/EventDetails";
 import { BlessingSection } from "@/components/BlessingSection/BlessingSection";
 import { ClosingMessage } from "@/components/ClosingMessage/ClosingMessage";
-import { ArchFrame } from "@/components/ArchFrame/ArchFrame";
-import { RoseCorner } from "@/components/RoseCorner/RoseCorner";
-import { InvitationBotanicals } from "@/components/InvitationBotanicals/InvitationBotanicals";
+import { Reveal } from "@/components/Reveal/Reveal";
 import styles from "./page.module.css";
 
 /* Friday 30 October 2026, 21:00 Tunisia time (UTC+1, no DST). */
@@ -19,182 +19,121 @@ const WEDDING_DATE = "2026-10-30T21:00:00+01:00";
 const WEDDING_MAP_URL =
   "https://www.google.com/maps/dir//Tej+Palace,+RQJV%2BCQX,+Sakiet+Eddaier/@36.8115712,10.1351424,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x1301d13af6ef2ee1:0xbbdb814f2ecd1830!2m2!1d10.7943346!2d34.8312148?entry=ttu";
 
-function renderVerseWords(verse: string) {
-  const words = verse.split(" ");
-
-  return words.map((word, index) => (
-    <span
-      key={`${word}-${index}`}
-      className={styles.verseWord}
-      style={{ "--word-index": index } as CSSProperties}
-      aria-hidden="true"
-    >
-      {word}
-      {index < words.length - 1 ? " " : ""}
-    </span>
-  ));
-}
-
 export default function Home() {
   const [isOpened, setIsOpened] = useState(false);
-  const { dict } = useLanguage();
+  const { dict, dir } = useLanguage();
+  const leafRef = useRef<HTMLElement>(null);
+  const pagesRef = useRef<HTMLElement>(null);
+  const prevRectRef = useRef<DOMRect | null>(null);
 
-  const {
-    ref: introRef,
-    isVisible: introVisible,
-    isActive: introActive,
-    motionStyle: introMotionStyle,
-  } = useScrollReveal<HTMLElement>();
-  const {
-    ref: countdownRef,
-    isVisible: countdownVisible,
-    isActive: countdownActive,
-    motionStyle: countdownMotionStyle,
-  } = useScrollReveal<HTMLDivElement>();
-  const {
-    ref: eventsRef,
-    isVisible: eventsVisible,
-    isActive: eventsActive,
-    motionStyle: eventsMotionStyle,
-  } = useScrollReveal<HTMLElement>();
-  const {
-    ref: blessingRef,
-    isVisible: blessingVisible,
-    isActive: blessingActive,
-    motionStyle: blessingMotionStyle,
-  } = useScrollReveal<HTMLDivElement>();
-  const {
-    ref: closingRef,
-    isVisible: closingVisible,
-    isActive: closingActive,
-    motionStyle: closingMotionStyle,
-  } = useScrollReveal<HTMLDivElement>();
+  function handleOpen() {
+    prevRectRef.current = leafRef.current?.getBoundingClientRect() ?? null;
+    setIsOpened(true);
+  }
 
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (media.matches) {
-      document.documentElement.style.setProperty("--page-scroll", "0px");
+  useLayoutEffect(() => {
+    if (!isOpened) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const leaf = leafRef.current;
+    const pages = pagesRef.current;
+    const prevRect = prevRectRef.current;
+
+    if (prefersReducedMotion || !leaf || !pages || !prevRect) {
+      // No FLIP: jump straight to the open state, and on mobile land the
+      // guest at the top of the invitation content.
+      if (pages && window.innerWidth < 760) {
+        pages.scrollIntoView({ behavior: "auto", block: "start" });
+      }
       return;
     }
 
-    let rafId = 0;
+    const nextRect = leaf.getBoundingClientRect();
+    const dx = prevRect.left - nextRect.left;
+    const dy = prevRect.top - nextRect.top;
+    const isMobile = window.innerWidth < 760;
 
-    const update = () => {
-      rafId = 0;
-      document.documentElement.style.setProperty("--page-scroll", `${window.scrollY}px`);
-    };
+    if (!isMobile && (dx !== 0 || dy !== 0)) {
+      leaf.style.transition = "none";
+      leaf.style.transform = `translate(${dx}px, ${dy}px)`;
+      // Force a reflow so the transform above is committed before the
+      // transition to none is applied.
+      leaf.getBoundingClientRect();
+      leaf.style.transition = `transform 700ms var(--ease-open)`;
+      leaf.style.transform = "none";
+    }
 
-    const queueUpdate = () => {
-      if (rafId === 0) {
-        rafId = window.requestAnimationFrame(update);
-      }
-    };
+    const insetFrom = dir === "rtl" ? "inset(0 100% 0 0)" : "inset(0 0 0 100%)";
+    pages.style.clipPath = insetFrom;
+    pages.style.transition = "none";
+    pages.getBoundingClientRect();
+    pages.style.transition = `clip-path 700ms var(--ease-open)`;
+    pages.style.clipPath = "inset(0)";
 
-    update();
-    window.addEventListener("scroll", queueUpdate, { passive: true });
-    window.addEventListener("resize", queueUpdate);
+    const cleanupTimer = window.setTimeout(() => {
+      leaf.style.transition = "";
+      leaf.style.transform = "";
+      pages.style.transition = "";
+      pages.style.clipPath = "";
+    }, 750);
 
-    return () => {
-      window.removeEventListener("scroll", queueUpdate);
-      window.removeEventListener("resize", queueUpdate);
-      if (rafId !== 0) {
-        window.cancelAnimationFrame(rafId);
-      }
-      document.documentElement.style.removeProperty("--page-scroll");
-    };
-  }, []);
+    if (isMobile) {
+      pages.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    return () => window.clearTimeout(cleanupTimer);
+  }, [isOpened, dir]);
+
+  const inlineEndCorner = dir === "rtl" ? "top-left" : "top-right";
+  const inlineStartCorner = dir === "rtl" ? "bottom-right" : "bottom-left";
 
   return (
     <main className={styles.main}>
       <LanguageSwitcher />
-      {!isOpened && <Envelope onOpen={() => setIsOpened(true)} />}
-      {isOpened && (
-        <>
-          <InvitationBotanicals />
-          <div className={styles.content}>
-            <RoseCorner corner="top-right" className={styles.frameRose} />
-            <RoseCorner corner="bottom-left" className={styles.frameRose} />
+      <div className={`${styles.sheet} ${!isOpened ? styles.closed : ""}`}>
+        <CoverLeaf
+          ref={leafRef}
+          isOpen={isOpened}
+          onOpen={handleOpen}
+          className={styles.leaf}
+        />
+        <section
+          ref={pagesRef}
+          className={`panel ${styles.pages}`}
+          aria-hidden={!isOpened}
+          hidden={!isOpened}
+        >
+          <PanelFrame />
+          <RoseCorner corner={inlineEndCorner} />
+          <RoseCorner corner={inlineStartCorner} />
 
-            <section
-              ref={introRef}
-              style={introMotionStyle}
-              className={`reveal ${introVisible ? `revealed ${styles.sectionVisible} ${styles.verseVisible}` : ""} ${introActive ? styles.sectionActive : ""} ${styles.sectionShell} ${styles.toneIvory} ${styles.introSection}`}
-              aria-label="intro"
-            >
-              <div className={styles.scrollFrame}>
-                <ArchFrame className={styles.archBlock}>
-                  <p className="bismillah">{dict.intro.bismillah}</p>
-                  <p className={`verse ${styles.verseLine}`} aria-label={dict.intro.verse}>
-                    {renderVerseWords(dict.intro.verse)}
-                  </p>
-                </ArchFrame>
-                <p className={`invitation ${styles.familiesLine}`}>{dict.intro.invitation}</p>
-                <h1 className={styles.coupleNames}>{dict.cover.coupleNames}</h1>
-                <div className={styles.invitationOrnament} aria-hidden="true">
-                  <span />
-                </div>
-                <p className={`invitation ${styles.dateSentence}`}>{dict.intro.dateSentence}</p>
-              </div>
-            </section>
-
-            <div
-              ref={countdownRef}
-              style={countdownMotionStyle}
-              className={`reveal ${countdownVisible ? `revealed ${styles.sectionVisible}` : ""} ${countdownActive ? styles.sectionActive : ""} ${styles.sectionShell} ${styles.toneGold}`}
-            >
-              <div className={styles.scrollFrame}>
-                <Countdown targetDate={WEDDING_DATE} />
-              </div>
+          <div className={styles.contentStack}>
+            <div className={styles.intro}>
+              <ArchFrame>
+                <p className={`t-bismillah ${styles.bismillah}`}>{dict.intro.bismillah}</p>
+                <p className={`t-verse ${styles.verse}`}>{dict.intro.verse}</p>
+              </ArchFrame>
+              <p className="t-body">{dict.intro.invitation}</p>
+              <h2 className={`t-display-names ${styles.introNames}`}>{dict.cover.coupleNames}</h2>
+              <FlourishHeart width="7rem" />
+              <p className={`t-body ${styles.introDate}`}>{dict.intro.dateSentence}</p>
             </div>
 
-            <section
-              ref={eventsRef}
-              style={eventsMotionStyle}
-              className={`reveal ${eventsVisible ? `revealed ${styles.sectionVisible}` : ""} ${eventsActive ? styles.sectionActive : ""} ${styles.sectionShell} ${styles.toneSage} ${styles.eventsSection}`}
-              aria-label="events"
-            >
-              <div className={styles.scrollFrame}>
-                <h2 className={styles.sectionHeading}>{dict.events.heading}</h2>
-                <div className={styles.eventsGrid}>
-                  <EventCard
-                    title={dict.events.wedding.title}
-                    dateLabel={dict.events.wedding.dateLabel}
-                    timeLabel={dict.events.wedding.timeLabel}
-                    venueName={dict.events.wedding.venueName}
-                    venueSubName={dict.events.wedding.venueSubName}
-                    addressLabel={dict.events.wedding.addressLabel}
-                    mapNote={dict.events.wedding.mapNote}
-                    mapUrl={WEDDING_MAP_URL}
-                    mapCtaLabel={dict.events.wedding.mapCtaLabel}
-                    isVisible={eventsVisible}
-                    index={0}
-                  />
-                </div>
-              </div>
-            </section>
-
-            <div
-              ref={blessingRef}
-              style={blessingMotionStyle}
-              className={`reveal ${blessingVisible ? `revealed ${styles.sectionVisible}` : ""} ${blessingActive ? styles.sectionActive : ""} ${styles.sectionShell} ${styles.toneIvory} ${styles.blessingSection}`}
-            >
-              <div className={styles.scrollFrame}>
-                <BlessingSection isVisible={blessingVisible} />
-              </div>
-            </div>
-
-            <div
-              ref={closingRef}
-              style={closingMotionStyle}
-              className={`reveal ${closingVisible ? `revealed ${styles.sectionVisible}` : ""} ${closingActive ? styles.sectionActive : ""} ${styles.sectionShell} ${styles.toneGold} ${styles.closingSection}`}
-            >
-              <div className={styles.scrollFrame}>
-                <ClosingMessage isVisible={closingVisible} />
-              </div>
-            </div>
+            <Reveal>
+              <Countdown targetDate={WEDDING_DATE} />
+            </Reveal>
+            <Reveal delayMs={80}>
+              <EventDetails mapUrl={WEDDING_MAP_URL} />
+            </Reveal>
+            <Reveal delayMs={80}>
+              <BlessingSection />
+            </Reveal>
+            <Reveal delayMs={80}>
+              <ClosingMessage />
+            </Reveal>
           </div>
-        </>
-      )}
+        </section>
+      </div>
     </main>
   );
 }

@@ -1,0 +1,41 @@
+.leaf {
+  position: relative;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 1.1rem;
+  padding: 2.5rem 1.5rem;
+  min-height: 100%;
+  text-align: center;
+}
+
+.word {
+  margin: 0;
+}
+
+.guestLine {
+  width: min(16rem, 80%);
+  min-height: 2.4rem;
+  border-bottom: 1px dotted var(--foil);
+  display: grid;
+  align-items: end;
+  justify-items: center;
+  padding-bottom: 0.35rem;
+}
+
+.guestName {
+  margin: 0;
+}
+
+@media (max-width: 759px) {
+  .leaf {
+    min-height: 100svh;
+    padding: 3.5rem 1.25rem 3rem;
+  }
+}
+
+@media (max-height: 600px) and (min-width: 760px) {
+  .leaf {
+    gap: 0.75rem;
+  }
+}

@@ -15,29 +15,24 @@ function getRemaining(targetDate: string): Remaining {
   return { days, hours, minutes, seconds };
 }
 
-function formatUnit(value: number, minimumDigits = 2) {
-  return value.toString().padStart(minimumDigits, "0");
+function formatUnit(value: number) {
+  return value.toString().padStart(value >= 100 ? 3 : 2, "0");
 }
 
-function RollingUnit({
-  value,
-  label,
-  minimumDigits = 2,
-}: {
-  value: number;
-  label: string;
-  minimumDigits?: number;
-}) {
-  const formatted = formatUnit(value, minimumDigits);
+function Unit({ value, label }: { value: number; label: string }) {
+  const formatted = formatUnit(value);
 
   return (
     <div className={styles.unit} role="group" aria-label={`${value} ${label}`}>
-      <div className={styles.valueFrame} aria-hidden="true">
-        <span key={formatted} className={styles.valueRolling}>
+      <span className={`t-numerals ${styles.value}`} aria-hidden="true">
+        {/* Re-keying on the formatted value replays the tick animation
+            each time it changes, and settles instantly under
+            prefers-reduced-motion via the global animation-duration override. */}
+        <span key={formatted} className={styles.tick}>
           {formatted}
         </span>
-      </div>
-      <span className={styles.label}>{label}</span>
+      </span>
+      <span className="t-small">{label}</span>
     </div>
   );
 }
@@ -54,23 +49,18 @@ export function Countdown({ targetDate }: { targetDate: string }) {
   }, [targetDate]);
 
   const units = [
-    { value: remaining?.days ?? 0, label: dict.countdown.days, minimumDigits: 2 },
-    { value: remaining?.hours ?? 0, label: dict.countdown.hours, minimumDigits: 2 },
-    { value: remaining?.minutes ?? 0, label: dict.countdown.minutes, minimumDigits: 2 },
-    { value: remaining?.seconds ?? 0, label: dict.countdown.seconds, minimumDigits: 2 },
+    { value: remaining?.days ?? 0, label: dict.countdown.days },
+    { value: remaining?.hours ?? 0, label: dict.countdown.hours },
+    { value: remaining?.minutes ?? 0, label: dict.countdown.minutes },
+    { value: remaining?.seconds ?? 0, label: dict.countdown.seconds },
   ];
 
   return (
     <section className={styles.section} aria-label={dict.countdown.heading}>
-      <h2 className={styles.heading}>{dict.countdown.heading}</h2>
+      <h2 className="t-heading">{dict.countdown.heading}</h2>
       <div className={styles.grid} aria-live="off">
         {units.map((unit) => (
-          <RollingUnit
-            key={unit.label}
-            value={unit.value}
-            label={unit.label}
-            minimumDigits={unit.minimumDigits}
-          />
+          <Unit key={unit.label} value={unit.value} label={unit.label} />
         ))}
       </div>
     </section>

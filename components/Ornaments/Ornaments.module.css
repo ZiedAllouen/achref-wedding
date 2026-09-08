@@ -1,0 +1,131 @@
+.flourish {
+  display: block;
+  max-width: 80%;
+  height: auto;
+  margin-inline: auto;
+  color: var(--foil);
+  animation: flourish-in 900ms var(--ease-open) both;
+  animation-delay: 200ms;
+}
+
+@keyframes flourish-in {
+  from {
+    opacity: 0;
+    transform: scaleX(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.frame {
+  position: absolute;
+  z-index: 2;
+  inset: var(--frame-inset);
+  border: 1px solid var(--foil);
+  pointer-events: none;
+  animation: frame-in 700ms var(--ease-open) both;
+}
+
+.frame::before {
+  content: "";
+  position: absolute;
+  inset: 0.3rem;
+  border: 1px solid var(--foil-soft);
+}
+
+@keyframes frame-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.curl {
+  position: absolute;
+  width: 1.6rem;
+  height: 1.6rem;
+  color: var(--foil);
+  opacity: 0;
+  animation: curl-in 600ms var(--ease-open) both;
+  animation-delay: 350ms;
+}
+
+/* Only opacity is animated (not transform): the inline `style.transform`
+   on each <svg> holds its per-corner mirror flip, and an element-level
+   `animation` would otherwise override that inline transform for the
+   life of the animation and its `both` fill. */
+
+.tl {
+  top: 0.65rem;
+  left: 0.65rem;
+}
+
+.tr {
+  top: 0.65rem;
+  right: 0.65rem;
+}
+
+.bl {
+  bottom: 0.65rem;
+  left: 0.65rem;
+}
+
+.br {
+  bottom: 0.65rem;
+  right: 0.65rem;
+}
+
+@keyframes curl-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 759px) {
+  .curl {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .tl,
+  .tr {
+    top: 0.5rem;
+  }
+
+  .bl,
+  .br {
+    bottom: 0.5rem;
+  }
+
+  .tl,
+  .bl {
+    left: 0.5rem;
+  }
+
+  .tr,
+  .br {
+    right: 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flourish,
+  .frame,
+  .curl {
+    animation: none;
+    opacity: 1;
+  }
+
+  /* .curl keeps its inline per-corner mirror transform; only .flourish
+     needs the scaleX(0.7) start state cleared. */
+  .flourish {
+    transform: none;
+  }
+}

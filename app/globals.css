@@ -1,21 +1,34 @@
 :root {
-  --color-cream: #f6f0e4;
-  --color-cream-deep: #ece1cd;
-  --color-cream-mist: #fffbf4;
-  --color-gold: #b8935a;
-  --color-gold-dark: #8c6d3f;
-  --color-gold-soft: rgba(184, 147, 90, 0.18);
-  --color-ivory: #f3ecdd;
-  --color-ivory-soft: rgba(243, 236, 221, 0.6);
-  --color-sage: #8f9b7c;
-  --color-sage-soft: rgba(143, 155, 124, 0.2);
-  --color-text: #4d3f32;
-  --color-text-soft: rgba(77, 63, 50, 0.74);
-  --page-scroll: 0px;
-  --font-heading-latin: "Playfair Display", serif;
-  --font-body-latin: "Cormorant Garamond", serif;
-  --font-heading-arabic: "Amiri", serif;
-  --font-display-arabic: "Aref Ruqaa", "Amiri", serif;
+  /* paper */
+  --paper: #f3ebdc;
+  --paper-light: #f9f4ea;
+  --ground: #e6dcc8;
+  --crease: #e0d3bb;
+
+  /* gold */
+  --foil: #b8935a;
+  --foil-soft: rgba(184, 147, 90, 0.5);
+  --gold-ink: #7a5b31;
+
+  /* ink */
+  --ink: #4a3b2c;
+  --ink-soft: #6b5a47;
+
+  /* botanicals */
+  --sage: #8f9b7c;
+  --sage-deep: #6f7d5f;
+  --rose-ivory: #fbf7ee;
+
+  /* type roles; the --font-* families are set by next/font on <html> */
+  --font-display-arabic: var(--font-katibeh), "Katibeh", serif;
+  --font-text-arabic: var(--font-scheherazade), "Scheherazade New", serif;
+  --font-latin: var(--font-garamond), "EB Garamond", Georgia, serif;
+
+  /* rhythm */
+  --frame-inset: 1.25rem;
+  --gap-section: 3.5rem;
+  --measure: 36rem;
+  --ease-open: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 * {
@@ -31,19 +44,17 @@ body {
   min-height: 100%;
   margin: 0;
   padding: 0;
-  background:
-    radial-gradient(circle at top, rgba(255, 249, 240, 0.96), transparent 44%),
-    linear-gradient(180deg, #fbf6ee 0%, #f2e9db 48%, #f7f1e8 100%);
-  color: var(--color-text);
-  font-family: var(--font-body-latin);
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-latin);
 }
 
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 html[dir="rtl"] body {
-  font-family: var(--font-heading-arabic);
+  font-family: var(--font-text-arabic);
 }
 
 h1,
@@ -57,14 +68,15 @@ p {
 h1,
 h2,
 h3 {
-  font-family: var(--font-heading-latin);
-  font-weight: 700;
+  font-family: var(--font-latin);
+  font-weight: 500;
 }
 
 html[dir="rtl"] h1,
 html[dir="rtl"] h2,
 html[dir="rtl"] h3 {
-  font-family: var(--font-heading-arabic);
+  font-family: var(--font-text-arabic);
+  font-weight: 700;
 }
 
 a {
@@ -83,63 +95,274 @@ button {
   touch-action: manipulation;
 }
 
+:focus-visible {
+  outline: 2px solid var(--gold-ink);
+  outline-offset: 3px;
+}
+
 ::selection {
-  background: rgba(184, 147, 90, 0.2);
+  background: rgba(184, 147, 90, 0.25);
 }
 
-section {
-  width: 100%;
+/* ---------- surfaces ---------- */
+
+/* A framed panel of the card: paper, faint grain, radial lift at the top. */
+.panel {
+  position: relative;
+  overflow: clip;
+  background:
+    radial-gradient(ellipse at 50% 0%, var(--paper-light) 0%, transparent 55%),
+    radial-gradient(rgba(150, 118, 70, 0.045) 1px, transparent 1.4px) 0 0 / 7px 7px,
+    var(--paper);
 }
 
-.bismillah {
-  font-family: var(--font-heading-arabic);
-  font-size: clamp(1.45rem, 4vw, 1.9rem);
-  color: var(--color-gold-dark);
-  letter-spacing: 0.04em;
+/* The two outlined buttons of the site (cover open, directions). */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 2.75rem;
+  border: 1px solid var(--foil);
+  border-radius: 0;
+  padding: 0.8rem 2rem;
+  background: transparent;
+  color: var(--gold-ink);
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
 }
 
-html[dir="rtl"] .bismillah {
-  font-family: var(--font-display-arabic);
-  font-size: clamp(1.7rem, 4.6vw, 2.3rem);
-  letter-spacing: 0;
-  line-height: 1.6;
+.btn-outline:hover,
+.btn-outline:focus-visible {
+  border-color: var(--gold-ink);
+  background: var(--gold-ink);
+  color: var(--paper);
 }
 
-.verse {
-  color: var(--color-text-soft);
+.btn-outline svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- type roles ---------- */
+/* Latin defaults first; Arabic overrides under html[dir="rtl"]. */
+
+.latin {
+  font-family: var(--font-latin);
+}
+
+.t-display-word {
+  font-family: var(--font-latin);
   font-style: italic;
-  font-size: clamp(1.08rem, 2.4vw, 1.22rem);
+  font-weight: 400;
+  font-size: clamp(2.75rem, 9vw, 6rem);
+  line-height: 1.05;
+  color: var(--gold-ink);
+  text-wrap: balance;
+}
+
+.t-display-names {
+  font-family: var(--font-latin);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2.25rem, 6.5vw, 4.6rem);
+  line-height: 1.1;
+  color: var(--gold-ink);
+  text-wrap: balance;
+}
+
+.t-display-closing {
+  font-family: var(--font-latin);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.4;
+  color: var(--gold-ink);
+  text-wrap: balance;
+}
+
+.t-bismillah {
+  font-family: var(--font-latin);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--gold-ink);
+}
+
+.t-verse {
+  font-family: var(--font-latin);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--gold-ink);
+}
+
+.t-prayer {
+  font-family: var(--font-latin);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3.4vw, 2rem);
+  line-height: 1.5;
+  color: var(--gold-ink);
+  text-wrap: balance;
+}
+
+.t-venue {
+  font-family: var(--font-latin);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  color: var(--gold-ink);
+}
+
+.t-numerals {
+  font-family: var(--font-latin);
+  font-style: normal;
+  font-weight: 500;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--gold-ink);
+}
+
+.t-heading {
+  font-family: var(--font-latin);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.375rem;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.t-body {
+  font-family: var(--font-latin);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.t-small {
+  font-family: var(--font-latin);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.t-guest {
+  font-family: var(--font-latin);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  color: var(--gold-ink);
+}
+
+.t-ui {
+  font-family: var(--font-latin);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.0625rem;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+}
+
+html[dir="rtl"] .t-display-word {
+  font-family: var(--font-display-arabic);
+  font-style: normal;
+  font-size: clamp(5.5rem, 22vw, 13rem);
+  line-height: 1;
+}
+
+html[dir="rtl"] .t-display-names {
+  font-family: var(--font-display-arabic);
+  font-style: normal;
+  font-size: clamp(3rem, 8vw, 5.6rem);
+  line-height: 1.3;
+}
+
+html[dir="rtl"] .t-display-closing {
+  font-family: var(--font-display-arabic);
+  font-style: normal;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  line-height: 1.5;
+}
+
+html[dir="rtl"] .t-bismillah {
+  font-family: var(--font-text-arabic);
+  font-style: normal;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3.2vw, 1.9rem);
   line-height: 1.9;
 }
 
-.invitation {
-  font-size: clamp(1.18rem, 2.8vw, 1.38rem);
-  line-height: 1.75;
-  color: var(--color-text);
-}
-
-html[dir="rtl"] .verse {
-  font-family: var(--font-heading-arabic);
+html[dir="rtl"] .t-verse {
+  font-family: var(--font-text-arabic);
   font-style: normal;
-  font-size: clamp(1.18rem, 2.8vw, 1.42rem);
-  line-height: 2.05;
+  font-size: 1.3rem;
+  line-height: 2.1;
 }
 
-html[dir="rtl"] .invitation {
+html[dir="rtl"] .t-prayer {
+  font-family: var(--font-text-arabic);
+  font-style: normal;
+  line-height: 1.9;
+}
+
+html[dir="rtl"] .t-heading {
+  font-family: var(--font-text-arabic);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+html[dir="rtl"] .t-body {
+  font-family: var(--font-text-arabic);
+  font-size: 1.25rem;
   line-height: 2;
 }
 
-.reveal {
-  opacity: 0;
-  transform: translate3d(0, 30px, 0);
-  transition:
-    opacity 0.8s ease,
-    transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+html[dir="rtl"] .t-small {
+  font-family: var(--font-text-arabic);
+  font-size: 1rem;
+  line-height: 1.7;
 }
 
-.reveal.revealed {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
+html[dir="rtl"] .t-guest {
+  font-family: var(--font-display-arabic);
+  font-style: normal;
+  line-height: 1.3;
+}
+
+html[dir="rtl"] .t-ui {
+  font-family: var(--font-text-arabic);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* Latin strings and digits keep the Latin face inside Arabic pages. */
+html[dir="rtl"] .t-venue,
+html[dir="rtl"] .t-numerals,
+html[dir="rtl"] .latin {
+  font-family: var(--font-latin);
+}
+
+@media (max-width: 759px) {
+  :root {
+    --frame-inset: 0.6rem;
+    --gap-section: 2.5rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -151,14 +374,10 @@ html[dir="rtl"] .invitation {
   *::before,
   *::after {
     animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.001ms !important;
-  }
-
-  .reveal,
-  .reveal.revealed {
-    opacity: 1;
-    transform: none;
+    transition-delay: 0ms !important;
   }
 }

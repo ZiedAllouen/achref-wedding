@@ -6,9 +6,9 @@ import type { Lang } from "@/lib/i18n/types";
 import styles from "./LanguageSwitcher.module.css";
 
 const LANGUAGES: { code: Lang; label: string }[] = [
-  { code: "en", label: "EN" },
-  { code: "fr", label: "FR" },
   { code: "ar", label: "AR" },
+  { code: "fr", label: "FR" },
+  { code: "en", label: "EN" },
 ];
 
 export function LanguageSwitcher() {
@@ -21,7 +21,11 @@ export function LanguageSwitcher() {
   }, [dict.meta.title, dir, lang]);
 
   return (
-    <div className={styles.switcher} role="group" aria-label={dict.languageSwitcher.label}>
+    <div
+      className={`t-ui latin ${styles.switcher}`}
+      role="group"
+      aria-label={dict.languageSwitcher.label}
+    >
       {LANGUAGES.map(({ code, label }) => (
         <button
           key={code}

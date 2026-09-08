@@ -1,6 +1,7 @@
 export type Dictionary = {
   meta: { title: string; description: string };
   cover: {
+    word: string;
     coupleNames: string;
     invitationLabel: string;
     dateLine: string;
