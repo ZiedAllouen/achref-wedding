@@ -1,0 +1,102 @@
+.root {
+  position: absolute;
+  width: var(--rose-size, 12rem);
+  height: var(--rose-size, 12rem);
+  color: rgba(160, 124, 72, 0.55);
+  pointer-events: none;
+  transform: scale(var(--flip-x, 1), var(--flip-y, 1));
+  transform-origin: center;
+  filter: drop-shadow(0 10px 22px rgba(120, 90, 45, 0.1));
+}
+
+.top-left {
+  top: var(--rose-offset, -1.5rem);
+  left: var(--rose-offset, -1.5rem);
+}
+
+.top-right {
+  top: var(--rose-offset, -1.5rem);
+  right: var(--rose-offset, -1.5rem);
+}
+
+.bottom-left {
+  bottom: var(--rose-offset, -1.5rem);
+  left: var(--rose-offset, -1.5rem);
+}
+
+.bottom-right {
+  bottom: var(--rose-offset, -1.5rem);
+  right: var(--rose-offset, -1.5rem);
+}
+
+.petalOuter {
+  fill: #efe5d3;
+  stroke: rgba(168, 132, 80, 0.48);
+  stroke-width: 0.9;
+  stroke-linejoin: round;
+}
+
+.petalMid {
+  fill: #f6efe2;
+  stroke: rgba(168, 132, 80, 0.52);
+  stroke-width: 0.9;
+  stroke-linejoin: round;
+}
+
+.petalInner {
+  fill: #fbf7ee;
+  stroke: rgba(168, 132, 80, 0.58);
+  stroke-width: 0.9;
+  stroke-linejoin: round;
+}
+
+.heart {
+  fill: #eee0c6;
+  stroke: rgba(168, 132, 80, 0.6);
+  stroke-width: 0.9;
+}
+
+.swirl {
+  fill: none;
+  stroke: rgba(168, 132, 80, 0.7);
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
+.leaf {
+  fill: rgba(146, 160, 126, 0.58);
+  stroke: rgba(112, 128, 94, 0.7);
+  stroke-width: 0.9;
+  stroke-linejoin: round;
+}
+
+.leafSoft {
+  fill: rgba(178, 188, 156, 0.52);
+  stroke: rgba(112, 128, 94, 0.55);
+  stroke-width: 0.9;
+  stroke-linejoin: round;
+}
+
+.vein {
+  fill: none;
+  stroke: rgba(112, 128, 94, 0.55);
+  stroke-width: 0.8;
+  stroke-linecap: round;
+}
+
+.stem {
+  fill: none;
+  stroke: rgba(133, 146, 112, 0.75);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+}
+
+.bud {
+  fill: #f6efe1;
+  stroke: rgba(168, 132, 80, 0.5);
+  stroke-width: 0.7;
+}
+
+.spark {
+  fill: rgba(184, 147, 90, 0.7);
+}

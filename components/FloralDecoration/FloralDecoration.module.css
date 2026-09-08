@@ -1,0 +1,60 @@
+.root {
+  position: absolute;
+  width: 8.5rem;
+  height: 8.5rem;
+  color: rgba(151, 112, 61, 0.58);
+  opacity: 0.55;
+  pointer-events: none;
+  transform:
+    translate3d(0, calc(var(--page-scroll, 0px) * var(--parallax-factor, 0.015)), 0)
+    scale(var(--scale-x), var(--scale-y));
+  transform-origin: center;
+  filter: drop-shadow(0 8px 18px rgba(176, 141, 87, 0.08));
+}
+
+.top-left {
+  top: -1rem;
+  left: -0.9rem;
+}
+
+.top-right {
+  top: -1rem;
+  right: -0.9rem;
+}
+
+.bottom-left {
+  bottom: -1rem;
+  left: -0.9rem;
+}
+
+.bottom-right {
+  bottom: -1rem;
+  right: -0.9rem;
+}
+
+.inner {
+  transform-origin: 12% 12%;
+  animation: sway 8s ease-in-out infinite;
+  animation-delay: var(--sway-delay, 0s);
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-2deg) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: rotate(2deg) translate3d(0.18rem, -0.3rem, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    transform: scale(var(--scale-x), var(--scale-y));
+  }
+
+  .inner {
+    animation: none;
+  }
+}

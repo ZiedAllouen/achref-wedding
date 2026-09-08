@@ -1,0 +1,112 @@
+.section {
+  display: grid;
+  gap: clamp(2.2rem, 6vw, 3.6rem);
+  text-align: center;
+}
+
+.heading {
+  color: #795a36;
+  font-size: clamp(2rem, 5vw, 3.1rem);
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+  border-top: 1px solid rgba(176, 141, 87, 0.3);
+  border-bottom: 1px solid rgba(176, 141, 87, 0.3);
+}
+
+.unit {
+  position: relative;
+  display: grid;
+  gap: 0.55rem;
+  place-items: center;
+  padding: 2rem 0.65rem 1.8rem;
+}
+
+.unit:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 22%;
+  right: 0;
+  bottom: 22%;
+  width: 1px;
+  background: linear-gradient(transparent, rgba(176, 141, 87, 0.34), transparent);
+}
+
+.valueFrame {
+  position: relative;
+  overflow: hidden;
+  min-width: 3.2ch;
+  height: clamp(3.1rem, 8vw, 4.25rem);
+}
+
+.valueRolling {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #8a6738;
+  font-family: var(--font-heading-latin);
+  font-size: clamp(2.2rem, 6vw, 3.45rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: 0.035em;
+  line-height: 1;
+  animation: odometer 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.label {
+  color: rgba(77, 63, 50, 0.66);
+  font-size: clamp(0.68rem, 1.5vw, 0.78rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+html[dir="rtl"] .label {
+  font-family: var(--font-heading-arabic);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+}
+
+html[dir="rtl"] .unit:not(:last-child)::after {
+  right: auto;
+  left: 0;
+}
+
+@keyframes odometer {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(55%);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .unit:nth-child(-n + 2) {
+    border-bottom: 1px solid rgba(176, 141, 87, 0.24);
+  }
+
+  .unit:nth-child(2)::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .valueRolling {
+    animation: none;
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "title": "Achraf & Molka - Wedding Invitation",
+    "description": "You are invited to the wedding of Achraf & Molka on Friday, October 30, 2026 at Tej Palace - Complexe Mariem, Sfax."
+  },
+  "cover": {
+    "coupleNames": "Achraf & Molka",
+    "invitationLabel": "Wedding invitation",
+    "dateLine": "Friday, October 30, 2026",
+    "tapToOpen": "Open the invitation"
+  },
+  "intro": {
+    "bismillah": "In the name of God, the Most Gracious, the Most Merciful",
+    "verse": "\"And among His signs is that He created for you spouses from among yourselves so that you may find tranquility in them, and He placed between you affection and mercy. Indeed in that are signs for a people who reflect.\" (Qur'an 30:21)",
+    "invitation": "The family of Mr. Abderrazak Attia and the family of Mr. Abderrahman Hakim have the honor of inviting you to celebrate the wedding of their children",
+    "dateSentence": "God willing, on Friday, October 30, 2026 at 9:00 PM"
+  },
+  "countdown": {
+    "heading": "Counting down to our celebration",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds"
+  },
+  "events": {
+    "heading": "Join us",
+    "wedding": {
+      "title": "The Wedding",
+      "dateLabel": "Friday, October 30, 2026",
+      "timeLabel": "9:00 PM",
+      "venueName": "Tej Palace",
+      "venueSubName": "Complexe Mariem - Salle Tej",
+      "addressLabel": "Route de Mahdia km 10, Sfax",
+      "mapNote": "View the venue and directions on Google Maps.",
+      "mapCtaLabel": "Get directions to Tej Palace"
+    }
+  },
+  "blessing": {
+    "heading": "A prayer for the newlyweds",
+    "prayer": "May God bless you both, shower His blessings upon you, and unite you in goodness.",
+    "message": "May your life together always be filled with affection, mercy, and joy."
+  },
+  "closing": {
+    "message": "May your days too be filled with joy and celebration."
+  },
+  "languageSwitcher": {
+    "label": "Language"
+  }
+}

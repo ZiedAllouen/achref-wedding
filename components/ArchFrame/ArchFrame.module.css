@@ -1,0 +1,48 @@
+.arch {
+  position: relative;
+  width: 100%;
+  color: rgba(176, 141, 87, 0.85);
+}
+
+.head {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.body {
+  position: relative;
+  padding: clamp(0.4rem, 1.5vw, 0.9rem) clamp(1.3rem, 5vw, 2.6rem) clamp(1.4rem, 3vw, 2rem);
+}
+
+.body::before,
+.body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, currentColor 0%, currentColor 45%, transparent 100%);
+  pointer-events: none;
+}
+
+.body::before {
+  left: 0;
+  box-shadow: 10px 0 0 -0.25px rgba(176, 141, 87, 0.5);
+}
+
+.body::after {
+  right: 0;
+  box-shadow: -10px 0 0 -0.25px rgba(176, 141, 87, 0.5);
+}
+
+@media (max-width: 520px) {
+  .body::before {
+    box-shadow: 7px 0 0 -0.25px rgba(176, 141, 87, 0.5);
+  }
+
+  .body::after {
+    box-shadow: -7px 0 0 -0.25px rgba(176, 141, 87, 0.5);
+  }
+}

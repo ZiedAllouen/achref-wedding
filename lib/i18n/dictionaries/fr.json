@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "title": "Achraf & Molka - Invitation de mariage",
+    "description": "Vous êtes invités au mariage d'Achraf & Molka le vendredi 30 octobre 2026 au Tej Palace - Complexe Mariem, Sfax."
+  },
+  "cover": {
+    "coupleNames": "Achraf & Molka",
+    "invitationLabel": "Invitation de mariage",
+    "dateLine": "Vendredi 30 octobre 2026",
+    "tapToOpen": "Ouvrir l'invitation"
+  },
+  "intro": {
+    "bismillah": "Au nom de Dieu, le Tout Miséricordieux, le Très Miséricordieux",
+    "verse": "« Et parmi Ses signes, Il a créé de vous, pour vous, des épouses afin que vous trouviez auprès d'elles la sérénité, et Il a mis entre vous affection et miséricorde. Il y a en cela des preuves pour des gens qui réfléchissent. » (Coran 30:21)",
+    "invitation": "La famille de Monsieur Abderrazak Attia et la famille de Monsieur Abderrahman Hakim ont l'honneur de vous inviter à célébrer le mariage de leurs enfants",
+    "dateSentence": "Si Dieu le veut, le vendredi 30 octobre 2026 à 21h00"
+  },
+  "countdown": {
+    "heading": "Compte à rebours avant notre célébration",
+    "days": "Jours",
+    "hours": "Heures",
+    "minutes": "Minutes",
+    "seconds": "Secondes"
+  },
+  "events": {
+    "heading": "Rejoignez-nous",
+    "wedding": {
+      "title": "Le mariage",
+      "dateLabel": "Vendredi 30 octobre 2026",
+      "timeLabel": "21h00",
+      "venueName": "Tej Palace",
+      "venueSubName": "Complexe Mariem - Salle Tej",
+      "addressLabel": "Route de Mahdia km 10, Sfax",
+      "mapNote": "Consultez le lieu et l'itinéraire sur Google Maps.",
+      "mapCtaLabel": "Itinéraire vers Tej Palace"
+    }
+  },
+  "blessing": {
+    "heading": "Une prière pour les mariés",
+    "prayer": "Qu'Allah vous bénisse, répande Sa bénédiction sur vous et vous unisse dans le bien.",
+    "message": "Que votre vie soit toujours remplie d'affection, de miséricorde et de joie."
+  },
+  "closing": {
+    "message": "Puissiez-vous, vous aussi, connaître toujours joie et célébration."
+  },
+  "languageSwitcher": {
+    "label": "Langue"
+  }
+}

@@ -1,0 +1,210 @@
+.frame {
+  position: fixed;
+  z-index: 2;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.branch {
+  position: absolute;
+  top: 50%;
+  width: clamp(7rem, 10vw, 10.5rem);
+  color: rgba(143, 108, 61, 0.62);
+  opacity: 0;
+  filter: drop-shadow(0 0.75rem 1.2rem rgba(137, 97, 54, 0.08));
+}
+
+.left {
+  left: max(clamp(0.7rem, 2.5vw, 1.8rem), calc(50vw - 30.5rem));
+  animation: revealLeft 1.25s cubic-bezier(0.22, 1, 0.36, 1) 260ms forwards;
+}
+
+.right {
+  right: max(clamp(0.7rem, 2.5vw, 1.8rem), calc(50vw - 30.5rem));
+  animation: revealRight 1.25s cubic-bezier(0.22, 1, 0.36, 1) 380ms forwards;
+}
+
+.art {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  transform-origin: center;
+}
+
+.right .art {
+  transform: scaleX(-1);
+}
+
+.sway {
+  transform-origin: 30% 92%;
+  animation: sway 8s ease-in-out infinite;
+}
+
+.right .sway {
+  animation-delay: -3.6s;
+}
+
+.stem,
+.stemFine {
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.stem {
+  stroke-width: 2;
+}
+
+.stemFine {
+  stroke-width: 1.3;
+}
+
+.leaf,
+.leafSoft,
+.leafSmall {
+  stroke: currentColor;
+  stroke-width: 1;
+}
+
+.leaf {
+  fill: rgba(159, 173, 135, 0.3);
+}
+
+.leafSoft {
+  fill: rgba(178, 188, 156, 0.3);
+}
+
+.leafSmall {
+  fill: rgba(159, 173, 135, 0.2);
+}
+
+.blossomLarge,
+.blossomSmall {
+  color: rgba(168, 132, 80, 0.72);
+  fill: rgba(246, 239, 225, 0.92);
+  stroke: currentColor;
+  stroke-width: 1;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.blossomLarge {
+  animation: blossomFloat 6.5s ease-in-out infinite;
+}
+
+.blossomSmall {
+  animation: blossomFloat 5.5s ease-in-out -2.2s infinite reverse;
+}
+
+.blossomLarge circle,
+.blossomSmall circle,
+.berry {
+  fill: rgba(166, 119, 61, 0.78);
+  stroke: none;
+}
+
+@keyframes revealLeft {
+  from {
+    opacity: 0;
+    transform: translate(-75%, -50%);
+  }
+
+  to {
+    opacity: 0.82;
+    transform: translate(-45%, -50%);
+  }
+}
+
+@keyframes revealRight {
+  from {
+    opacity: 0;
+    transform: translate(75%, -50%);
+  }
+
+  to {
+    opacity: 0.82;
+    transform: translate(45%, -50%);
+  }
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-1.8deg) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: rotate(2.2deg) translate3d(0.15rem, -0.3rem, 0);
+  }
+}
+
+@keyframes blossomFloat {
+  0%,
+  100% {
+    transform: rotate(-2deg) scale(0.98);
+  }
+
+  50% {
+    transform: rotate(3deg) scale(1.04);
+  }
+}
+
+@media (max-width: 720px) {
+  .branch {
+    width: 6.8rem;
+  }
+
+  .left {
+    left: 0;
+  }
+
+  .right {
+    right: 0;
+  }
+
+  @keyframes revealLeft {
+    from {
+      opacity: 0;
+      transform: translate(-82%, -50%);
+    }
+
+    to {
+      opacity: 0.48;
+      transform: translate(-62%, -50%);
+    }
+  }
+
+  @keyframes revealRight {
+    from {
+      opacity: 0;
+      transform: translate(82%, -50%);
+    }
+
+    to {
+      opacity: 0.48;
+      transform: translate(62%, -50%);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .left,
+  .right,
+  .sway,
+  .blossomLarge,
+  .blossomSmall {
+    animation: none;
+  }
+
+  .left {
+    opacity: 0.72;
+    transform: translate(-45%, -50%);
+  }
+
+  .right {
+    opacity: 0.72;
+    transform: translate(45%, -50%);
+  }
+}
