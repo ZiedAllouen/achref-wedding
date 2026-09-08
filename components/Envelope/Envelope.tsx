@@ -3,7 +3,6 @@
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { WeddingCrest } from "@/components/WeddingCrest/WeddingCrest";
-import { MonogramCrest } from "@/components/MonogramCrest/MonogramCrest";
 import { GuestName } from "./GuestName";
 import styles from "./Envelope.module.css";
 
@@ -90,7 +89,7 @@ export function Envelope({ onOpen }: { onOpen: () => void }) {
           </div>
           <div className={styles.flap} aria-hidden="true" />
           <div className={styles.seal} aria-hidden="true">
-            <MonogramCrest initials="A & M" className={styles.sealCrest} />
+            <WeddingCrest className={styles.sealCrest} />
           </div>
           <div className={styles.buttonWrap}>
             <button

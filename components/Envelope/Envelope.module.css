@@ -137,16 +137,16 @@
   z-index: 1;
   inset: 7% 0 2%;
   overflow: hidden;
-  border: 1px solid rgba(132, 91, 44, 0.15);
+  border: 1px solid rgba(142, 105, 58, 0.13);
   border-radius: var(--envelope-radius);
   background:
     linear-gradient(32deg, transparent 49.75%, rgba(255, 247, 228, 0.3) 50%, transparent 50.25%) left bottom / 50% 72% no-repeat,
     linear-gradient(-32deg, transparent 49.75%, rgba(255, 247, 228, 0.3) 50%, transparent 50.25%) right bottom / 50% 72% no-repeat,
-    radial-gradient(circle at 50% 8%, rgba(255, 236, 199, 0.28), transparent 45%),
-    linear-gradient(145deg, #e3bd7b 0%, #d4a760 100%);
+    radial-gradient(circle at 50% 8%, rgba(255, 249, 231, 0.5), transparent 48%),
+    linear-gradient(145deg, #efd9af 0%, #dfbd82 100%);
   box-shadow:
     0 26px 58px rgba(87, 60, 30, 0.16),
-    inset 0 1px 0 rgba(255, 247, 228, 0.45),
+    inset 0 1px 0 rgba(255, 252, 240, 0.62),
     inset 0 -1px 0 rgba(111, 73, 34, 0.08);
 }
 
@@ -216,8 +216,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 12%, rgba(255, 239, 208, 0.22), transparent 50%),
-    linear-gradient(155deg, #eac789 0%, #d9ad68 100%);
+    radial-gradient(circle at 50% 12%, rgba(255, 251, 237, 0.48), transparent 52%),
+    linear-gradient(155deg, #f3ddb3 0%, #e2c187 100%);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 
@@ -230,22 +230,22 @@
   place-items: center;
   width: clamp(3.8rem, 10vw, 4.75rem);
   aspect-ratio: 1;
-  border: 1px solid rgba(255, 231, 195, 0.62);
+  border: 1px solid rgba(255, 234, 197, 0.82);
   border-radius: 50%;
   background:
-    radial-gradient(circle at 38% 30%, rgba(255, 234, 211, 0.25), transparent 30%),
-    linear-gradient(145deg, #b97f74, #956056);
-  color: #fff7e9;
+    radial-gradient(circle at 38% 30%, rgba(255, 239, 208, 0.28), transparent 30%),
+    linear-gradient(145deg, #b28a52, #7c5a34);
+  color: #fffaf0;
   box-shadow:
-    0 10px 22px rgba(82, 46, 33, 0.2),
-    inset 0 0 0 0.32rem rgba(110, 63, 54, 0.12),
-    inset 0 0 0 0.42rem rgba(255, 230, 198, 0.2);
+    0 10px 22px rgba(75, 52, 28, 0.22),
+    inset 0 0 0 0.32rem rgba(78, 53, 28, 0.14),
+    inset 0 0 0 0.42rem rgba(255, 230, 190, 0.22);
   transform: translate(-50%, -50%) rotate(-4deg);
 }
 
 .sealCrest {
-  width: 82%;
-  height: 82%;
+  width: 58%;
+  height: 58%;
 }
 
 .buttonWrap {
