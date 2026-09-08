@@ -13,7 +13,7 @@
      fade-in's `both` fill holds its end state. */
   animation:
     rose-fade-in 1100ms var(--ease-open) both,
-    botanical-sway 8s ease-in-out infinite;
+    botanical-sway 6s ease-in-out infinite;
   animation-delay: 150ms, 0ms;
 }
 
@@ -29,10 +29,10 @@
 @keyframes botanical-sway {
   0%,
   100% {
-    transform: scale(var(--flip-x, 1), var(--flip-y, 1)) rotate(-1deg) translateY(0);
+    transform: scale(var(--flip-x, 1), var(--flip-y, 1)) rotate(-2.4deg) translateY(0);
   }
   50% {
-    transform: scale(var(--flip-x, 1), var(--flip-y, 1)) rotate(1.8deg) translateY(-0.35rem);
+    transform: scale(var(--flip-x, 1), var(--flip-y, 1)) rotate(3.2deg) translateY(-0.65rem);
   }
 }
 

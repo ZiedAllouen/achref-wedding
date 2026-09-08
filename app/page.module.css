@@ -188,6 +188,35 @@
   letter-spacing: 0.34em;
 }
 
+.sprig {
+  --sprig-size: clamp(4.5rem, 11vw, 7rem);
+  z-index: 0;
+  opacity: 0.85;
+}
+
+.sprigCountdown {
+  top: -1rem;
+  left: clamp(0.5rem, 4vw, 2.5rem);
+}
+
+.sprigEvent {
+  top: 1rem;
+  right: clamp(0.25rem, 3vw, 1.5rem);
+  --sprig-delay: 120ms;
+}
+
+.sprigBlessing {
+  bottom: -0.5rem;
+  left: clamp(0.25rem, 3vw, 1.5rem);
+  --sprig-delay: 60ms;
+}
+
+.sprigClosing {
+  top: 0.5rem;
+  right: clamp(0.5rem, 4vw, 2.5rem);
+  --sprig-delay: 120ms;
+}
+
 @keyframes invitationIn {
   to {
     opacity: 1;

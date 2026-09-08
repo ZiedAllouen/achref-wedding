@@ -6,6 +6,7 @@ import { Envelope } from "@/components/Envelope/Envelope";
 import { ArchFrame } from "@/components/ArchFrame/ArchFrame";
 import { FlourishHeart, PanelFrame } from "@/components/Ornaments/Ornaments";
 import { RoseCorner } from "@/components/RoseCorner/RoseCorner";
+import { FloralSprig } from "@/components/FloralSprig/FloralSprig";
 import { Countdown } from "@/components/Countdown/Countdown";
 import { EventDetails } from "@/components/EventDetails/EventDetails";
 import { BlessingSection } from "@/components/BlessingSection/BlessingSection";
@@ -52,12 +53,14 @@ export default function Home() {
         </header>
 
         <Reveal as="section" className={`${styles.section} ${styles.countdownBand}`}>
+          <FloralSprig side="left" className={`${styles.sprig} ${styles.sprigCountdown}`} />
           <Countdown targetDate={WEDDING_DATE} />
         </Reveal>
 
         <Reveal as="section" className={`${styles.section} ${styles.eventCard}`} delayMs={80}>
           <RoseCorner corner="top-left" className={styles.smallRose} />
           <RoseCorner corner="bottom-right" className={styles.smallRose} />
+          <FloralSprig side="right" className={`${styles.sprig} ${styles.sprigEvent}`} />
           <span className={styles.sectionNumber} aria-hidden="true">
             01
           </span>
@@ -65,10 +68,12 @@ export default function Home() {
         </Reveal>
 
         <Reveal as="section" className={`${styles.section} ${styles.blessing}`} delayMs={80}>
+          <FloralSprig side="left" className={`${styles.sprig} ${styles.sprigBlessing}`} />
           <BlessingSection />
         </Reveal>
 
         <Reveal as="footer" className={`${styles.section} ${styles.closing}`} delayMs={80}>
+          <FloralSprig side="right" className={`${styles.sprig} ${styles.sprigClosing}`} />
           <ClosingMessage />
           <p className={styles.signature} aria-hidden="true">
             A&nbsp;&amp;&nbsp;M

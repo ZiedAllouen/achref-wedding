@@ -20,7 +20,7 @@
   --rose-ivory: #fbf7ee;
 
   /* type roles; the --font-* families are set by next/font on <html> */
-  --font-display-arabic: var(--font-katibeh), "Katibeh", serif;
+  --font-display-arabic: var(--font-aref-ruqaa), "Aref Ruqaa", serif;
   --font-text-arabic: var(--font-scheherazade), "Scheherazade New", serif;
   --font-latin: var(--font-garamond), "EB Garamond", Georgia, serif;
 

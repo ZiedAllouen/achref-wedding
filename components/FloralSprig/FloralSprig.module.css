@@ -1,0 +1,109 @@
+.root {
+  position: absolute;
+  width: var(--sprig-size, 6rem);
+  height: auto;
+  aspect-ratio: 120 / 320;
+  color: rgba(160, 124, 72, 0.6);
+  pointer-events: none;
+  transform-origin: top center;
+  transform: scaleX(var(--flip-x, 1));
+  filter: drop-shadow(0 6px 14px rgba(120, 90, 45, 0.08));
+  opacity: 0;
+  /* fade-in only touches opacity so it never fights the continuous sway's
+     transform, the same pattern used by RoseCorner. */
+  animation:
+    sprig-fade-in 1000ms var(--ease-open) both,
+    sprig-sway 7s ease-in-out infinite;
+  animation-delay: var(--sprig-delay, 0ms), 0ms;
+}
+
+@keyframes sprig-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes sprig-sway {
+  0%,
+  100% {
+    transform: scaleX(var(--flip-x, 1)) rotate(-1.4deg);
+  }
+  50% {
+    transform: scaleX(var(--flip-x, 1)) rotate(1.6deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    animation: none;
+    opacity: 1;
+    transform: scaleX(var(--flip-x, 1));
+  }
+
+  .spark {
+    animation: none;
+  }
+}
+
+.stem {
+  fill: none;
+  stroke: rgba(133, 146, 112, 0.7);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+
+.petal {
+  fill: rgba(214, 158, 154, 0.55);
+  stroke: rgba(184, 122, 118, 0.6);
+  stroke-width: 0.8;
+  stroke-linejoin: round;
+}
+
+.heart {
+  fill: #c99a6b;
+  opacity: 0.85;
+}
+
+.leaf {
+  fill: rgba(158, 174, 137, 0.55);
+  stroke: rgba(112, 128, 94, 0.62);
+  stroke-width: 0.8;
+  stroke-linejoin: round;
+}
+
+.vein {
+  fill: none;
+  stroke: rgba(112, 128, 94, 0.5);
+  stroke-width: 0.7;
+  stroke-linecap: round;
+}
+
+.spark {
+  fill: rgba(184, 147, 90, 0.75);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: spark-twinkle 3.4s ease-in-out infinite;
+}
+
+.spark:nth-of-type(2) {
+  animation-delay: 1s;
+}
+
+.spark:nth-of-type(3) {
+  animation-delay: 2s;
+}
+
+@keyframes spark-twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+}

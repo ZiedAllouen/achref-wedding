@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Katibeh, Scheherazade_New, EB_Garamond } from "next/font/google";
+import { Aref_Ruqaa, Scheherazade_New, EB_Garamond } from "next/font/google";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 import ar from "@/lib/i18n/dictionaries/ar.json";
 import "./globals.css";
 
-const katibeh = Katibeh({
+const arefRuqaa = Aref_Ruqaa({
   subsets: ["arabic"],
-  weight: "400",
-  variable: "--font-katibeh",
+  weight: ["400", "700"],
+  variable: "--font-aref-ruqaa",
 });
 
 const scheherazade = Scheherazade_New({
@@ -38,7 +38,7 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${katibeh.variable} ${scheherazade.variable} ${garamond.variable}`}
+      className={`${arefRuqaa.variable} ${scheherazade.variable} ${garamond.variable}`}
     >
       <body>
         <LanguageProvider>{children}</LanguageProvider>
