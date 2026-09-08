@@ -118,6 +118,10 @@
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(151, 111, 58, 0.55), transparent);
   transform: translateX(-50%);
+  /* Purely decorative: never let this sit above interactive content
+     (e.g. the "Get directions" link in .eventCard, which reuses this
+     ::before as a full inset border and would otherwise swallow clicks). */
+  pointer-events: none;
 }
 
 .countdownBand {
